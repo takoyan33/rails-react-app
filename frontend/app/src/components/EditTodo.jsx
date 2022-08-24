@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { Routes, Route, useParams } from "react-router-dom";
-// import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 
 const InputName = styled.input`
   font-size: 20px;
@@ -52,8 +50,6 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-// toast.configure();
-
 function EditTodo(props) {
   const initialTodoState = {
     id: null,
@@ -62,6 +58,7 @@ function EditTodo(props) {
   };
 
   const [currentTodo, setCurrentTodo] = useState(initialTodoState);
+  const navigate = useNavigate();
 
   let { id } = useParams();
   console.log({ id });
@@ -84,6 +81,7 @@ function EditTodo(props) {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setCurrentTodo({ ...currentTodo, [name]: value });
+    //currenttodoのnameをセットする
   };
 
   const updateIsCompleted = (val) => {
@@ -95,6 +93,7 @@ function EditTodo(props) {
     axios
       .patch(`http://localhost:3001/api/v1/todos/${val.id}`, data)
       .then((resp) => {
+        alert("更新しました");
         setCurrentTodo(resp.data);
       });
   };
@@ -106,8 +105,8 @@ function EditTodo(props) {
         currentTodo
       )
       .then((response) => {
-        // notify();
-        props.history.push("/todos");
+        alert("編集が完了しました");
+        navigate("/todos");
       })
       .catch((e) => {
         console.log(e);
@@ -115,13 +114,14 @@ function EditTodo(props) {
   };
 
   const deleteTodo = () => {
-    const sure = window.confirm("Are you sure?");
+    const sure = window.confirm("削除しても大丈夫ですか?");
     if (sure) {
       axios
         .delete(`http://localhost:3001/api/v1/todos/${currentTodo.id}`)
         .then((resp) => {
           console.log(resp.data);
-          props.history.push("/railstodos");
+          alert("削除しました");
+          navigate("/todos");
         })
         .catch((e) => {
           console.log(e);

@@ -4,6 +4,7 @@ import styled from "styled-components";
 // import { toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { FiSend } from "react-icons/fi";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 
 const InputAndButton = styled.div`
   display: flex;
@@ -54,13 +55,7 @@ function AddTodo(props) {
   console.log(props);
 
   const [todo, setTodo] = useState(initialTodoState);
-
-  // const notify = () => {
-  //   toast.success("Todo successfully created!", {
-  //     position: "bottom-center",
-  //     hideProgressBar: true,
-  //   });
-  // };
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -80,8 +75,8 @@ function AddTodo(props) {
           name: resp.data.name,
           is_completed: resp.data.is_completed,
         });
-        // notify();
-        props.history.push("/railstodos");
+        alert("追加しました");
+        navigate("/todos");
       })
       .catch((e) => {
         console.log(e);

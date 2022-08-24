@@ -91,11 +91,13 @@ function RailsPage() {
 
   const removeAllTodos = () => {
     const sure = window.confirm("Are you sure?");
+    //確認box
     if (sure) {
       axios
         .delete("http://localhost:3001/api/v1/todos/destroy_all")
         .then((resp) => {
           setTodos([]);
+          //空の配列にする
         })
         .catch((e) => {
           console.log(e);
@@ -104,16 +106,20 @@ function RailsPage() {
   };
 
   const updateIsCompleted = (index, val) => {
+    //引数を２つ取る
     var data = {
       id: val.id,
       name: val.name,
       is_completed: !val.is_completed,
+      //値が反転する true→false
     };
     axios
       .patch(`http://localhost:3001/api/v1/todos/${val.id}`, data)
       .then((resp) => {
         const newTodos = [...todos];
+        //スプレッド構文で開ける
         newTodos[index].is_completed = resp.data.is_completed;
+        //番号を指定する
         setTodos(newTodos);
       });
   };
@@ -128,7 +134,7 @@ function RailsPage() {
       <SearchAndButtton>
         <SearchForm
           type="text"
-          placeholder="Search todo..."
+          placeholder="todoを探す"
           onChange={(event) => {
             setSearchName(event.target.value);
           }}
@@ -140,8 +146,10 @@ function RailsPage() {
           .filter((val) => {
             if (searchName === "") {
               return val;
+              //そのまま返す
             } else if (
               val.name.toLowerCase().includes(searchName.toLowerCase())
+              //valのnameが含んでいたら小文字で返す　含んでいないvalは返さない
             ) {
               return val;
             }

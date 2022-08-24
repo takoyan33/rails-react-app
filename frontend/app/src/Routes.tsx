@@ -5,6 +5,7 @@ import RailsPage from "./pages/RailsPage";
 import QiitapracticePage from "./pages/QiitapracticePage";
 import EditTodo from "./components/EditTodo";
 import AddTodo from "./components/AddTodo";
+import Error from "./components/Error";
 
 const Routers = () => {
   return (
@@ -16,6 +17,7 @@ const Routers = () => {
         <Route path="/todos/:id/edit" element={<EditTodo />} />
         <Route path="/todos/new" element={<AddTodo />} />
         <Route path="/qiitapractice" element={<QiitapracticePage />} />
+        <Route path="*"element={<Error />} />
       </Routes>
     </BrowserRouter>
   );
