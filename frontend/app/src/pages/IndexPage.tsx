@@ -14,12 +14,17 @@ const IndexPage: React.FC = () => {
       <br></br>
       <br></br>
       <button>
-        <Link to="Qiita">QiitaAPI</Link>
+        <Link to="qiita">QiitaAPI</Link>
       </button>
       <br></br>
       <br></br>
       <button>
-        <Link to="Qiita">Qiita練習API</Link>
+        <Link to="qiitapractice">Qiita練習API</Link>
+      </button>
+      <br></br>
+      <br></br>
+      <button>
+        <Link to="resas">ResasAPI</Link>
       </button>
     </>
   );
